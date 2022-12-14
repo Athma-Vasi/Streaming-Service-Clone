@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
+import Row from '../components/Row';
 import { Movie } from '../types';
 import requests from '../utils/requests';
 
@@ -15,7 +16,16 @@ type HomeProps = {
   documentaries: Movie[];
 };
 
-const Home = ({ netflixOriginals }: HomeProps) => {
+const Home = ({
+  netflixOriginals,
+  trendingNow,
+  topRated,
+  actionMovies,
+  comedyMovies,
+  horrorMovies,
+  romanceMovies,
+  documentaries,
+}: HomeProps) => {
   console.log(netflixOriginals);
 
   return (
@@ -26,16 +36,9 @@ const Home = ({ netflixOriginals }: HomeProps) => {
       </Head>
 
       <Header />
-      <main>
+      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16 ">
         <Banner netflixOriginals={netflixOriginals} />
-        <section>
-          {/* row */}
-          {/* row */}
-          {/* row */}
-          {/* row */}
-          {/* row */}
-          {/* row */}
-        </section>
+        <section></section>
       </main>
       {/* modal */}
     </div>
