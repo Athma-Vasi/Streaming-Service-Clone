@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
+import { Movie } from '../types';
 
-function Banner() {
+type BannerProps = {
+  netflixOriginals: Movie[];
+};
+
+function Banner({ netflixOriginals }: BannerProps) {
   return (
     <div>
       {/* <div>
