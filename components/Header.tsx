@@ -1,20 +1,26 @@
 import { BellIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import { FaDharmachakra } from 'react-icons/fa';
+import { SiNetflix } from 'react-icons/si';
 import { BiHomeSmile } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
 
 function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      window.scrollY > 0 ? setIsScrolled(true) : setIsScrolled(false);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header>
+    <header className={`${isScrolled && 'bg-[#141414]'}`}>
       <div className="flex item-center space-x-2 md:space-x-10">
-        {/* <img
-          src="https://rb.gy/ulxxee"
-          alt="logo-name"
-          width={100}
-          height={100}
-        /> */}
-        <FaDharmachakra width={100} height={100} />
+        <SiNetflix width={100} height={100} color="red" />
         <ul className="hidden space-x-4 md:flex">
           <li className="headerLink">Home</li>
           <li className="headerLink">TV Shows</li>

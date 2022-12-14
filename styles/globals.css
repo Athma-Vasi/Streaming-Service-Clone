@@ -5,7 +5,7 @@
 /* html, body, heading */
 @layer base {
   body {
-    @apply bg-gray-900 text-yellow-50;
+    @apply bg-[#141414] text-yellow-50;
   }
 
   header {
