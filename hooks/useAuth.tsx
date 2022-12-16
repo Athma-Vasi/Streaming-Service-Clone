@@ -53,6 +53,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .finally(() => setLoading(false));
   };
 
+  const logOut = async () => {
+    setLoading(true);
+
+    //signOut function from firebase that only accepts auth object and returns promise
+    signOut(auth)
+      .then(() => {
+        //when user is signed out , modify the state to null
+        setUser(null);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => setLoading(false));
+  };
   //
   return <AuthContext.Provider>{children}</AuthContext.Provider>;
 };
