@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [error, setError] = useState<Error | null>(null);
   const router = useRouter();
 
-  //
+  // to persist the user
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
