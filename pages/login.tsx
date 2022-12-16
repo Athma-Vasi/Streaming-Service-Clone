@@ -15,11 +15,12 @@ function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+    login ? await signIn(email, password) : await signUp(email, password);
+  };
 
   return (
     <div className="relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent">
@@ -56,6 +57,11 @@ function Login() {
             className="text-white input"
             {...register('email', { required: true })}
           />
+          {errors.email && (
+            <p className="p-1 text-[13px] font-light text-orange-500">
+              Please enter a valid email.
+            </p>
+          )}
 
           <label htmlFor="password"></label>
           <input
@@ -64,9 +70,17 @@ function Login() {
             className="text-white input"
             {...register('password', { required: true })}
           />
+          {errors.password && (
+            <p className="p-1 text-[13px] font-light text-orange-500">
+              Password must contain between 8 and 60 characters.
+            </p>
+          )}
         </div>
 
-        <button className="w-full rounded bg-[#e50914] py-3 font-semibold ">
+        <button
+          className="w-full rounded bg-[#e50914] py-3 font-semibold"
+          onClick={() => setLogin(true)}
+        >
           Sign In
         </button>
 
