@@ -35,9 +35,28 @@ type AuthProviderProps = {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const router = useRouter();
+
+  //
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        //logged in
+        setUser(user);
+        setLoading(false);
+      } else {
+        //not logged in
+        setUser(null);
+        setLoading(true);
+        router.push('/login');
+      }
+
+      setInitialLoading(false);
+    });
+  }, [auth]);
 
   // an async sign up function that manages sign up of a new user
   const signUp = async (email: string, password: string) => {
@@ -99,7 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider value={memoizedValue}>
-      {children}
+      {!initialLoading && children}
     </AuthContext.Provider>
   );
 };
