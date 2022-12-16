@@ -1,3 +1,4 @@
+import { create } from 'domain';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -10,14 +11,32 @@ import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { auth } from '../firebase';
 
+type IAuth = {
+  user: User | null;
+  signUp: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
+  logOut: () => Promise<void>;
+  error: Error | null;
+  loading: boolean;
+};
+
+const AuthContext = createContext<IAuth>({
+  user: null,
+  signUp: async () => {},
+  signIn: async () => {},
+  logOut: async () => {},
+  error: null,
+  loading: false,
+});
+
 type AuthProviderProps = {
   children: React.ReactNode;
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(false);
-  //
   const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const router = useRouter();
 
   // an async sign up function that manages sign up of a new user
@@ -65,8 +84,26 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .catch((error) => alert(error.message))
       .finally(() => setLoading(false));
   };
-  //
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+
+  const memoizedValue = useMemo(
+    () => ({
+      user,
+      signUp,
+      signIn,
+      error,
+      loading,
+      logOut,
+    }),
+    [user, error, loading]
+  );
+
+  return (
+    <AuthContext.Provider value={memoizedValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export default useAuth;
+export default function useAuth() {
+  return useContext(AuthContext);
+}
