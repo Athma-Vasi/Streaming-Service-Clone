@@ -28,6 +28,9 @@ function Row({ title, movies }: RowProps) {
     }
   }
 
+  console.log('scrollLeft: ', rowRef.current?.scrollLeft);
+  console.log('clientWidth: ', rowRef.current?.clientWidth);
+
   return (
     <div className="h-40 space-y-0.5 md:space-y-2">
       <h2 className="w-56 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-300 hover:text-white md:text-2xl">
