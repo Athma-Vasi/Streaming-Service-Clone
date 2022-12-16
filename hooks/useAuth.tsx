@@ -38,6 +38,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .finally(() => setLoading(false));
   };
 
+  const signIn = async (email: string, password: string) => {
+    setLoading(true);
+
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+
+        router.push('/');
+
+        setLoading(false);
+      })
+      .catch((error) => alert(error.message))
+      .finally(() => setLoading(false));
+  };
+
   //
   return <AuthContext.Provider>{children}</AuthContext.Provider>;
 };
