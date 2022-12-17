@@ -3,12 +3,13 @@ import MuiModal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { modalState, movieState } from '../atoms/modalAtom';
-import { Movie, MovieFromModal } from '../types';
+import { Element, Genre, Movie, MovieFromModal } from '../types';
 
 function Modal() {
   const [showModal, setShowModal] = useRecoilState(modalState);
   const [movie, setMovie] = useRecoilState(movieState);
   const [trailer, setTrailer] = useState('');
+  const [genres, setGenres] = useState<Genre[]>([]);
   const handleClose = () => setShowModal(false);
 
   useEffect(() => {
@@ -24,6 +25,15 @@ function Modal() {
       )
         .then((response) => response.json())
         .catch((error) => console.error(error.message));
+
+      if (data?.videos) {
+        const index = data?.videos?.results.findIndex(
+          (element) => element.type === 'Trailer'
+        );
+        setTrailer(data?.videos?.results[index]?.key);
+      }
+
+      if (data?.genres) setGenres(data.genres);
     }
 
     fetchMovie();
