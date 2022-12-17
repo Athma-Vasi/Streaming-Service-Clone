@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { SiNetflix } from 'react-icons/si';
 import { BiHomeSmile } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
+import useAuth from '../hooks/useAuth';
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { logOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +37,10 @@ function Header() {
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="h-6 w-6" />
         <Link href="/account">
-          <BiHomeSmile className="cursor-pointer rounded h-6 w-6" />
+          <BiHomeSmile
+            className="cursor-pointer rounded h-6 w-6"
+            onClick={logOut}
+          />
         </Link>
       </div>
     </header>

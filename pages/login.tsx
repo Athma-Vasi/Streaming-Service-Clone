@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SiNetflix } from 'react-icons/si';
+import useAuth from '../hooks/useAuth';
 
 type Inputs = {
   email: string;
@@ -11,6 +12,7 @@ type Inputs = {
 
 function Login() {
   const [login, setLogin] = useState(false);
+  const { signIn, signUp } = useAuth();
 
   const {
     register,
@@ -19,7 +21,8 @@ function Login() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
-    login ? await signIn(email, password) : await signUp(email, password);
+    if (login) await signIn(email, password);
+    else await signUp(email, password);
   };
 
   return (
