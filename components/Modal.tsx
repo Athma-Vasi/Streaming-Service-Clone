@@ -1,6 +1,8 @@
-import { XMarkIcon } from '@heroicons/react/20/solid';
+import { PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import MuiModal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
+import { FaPlay, FaThumbsUp, FaVolumeOff, FaVolumeUp } from 'react-icons/fa';
+import ReactPlayer from 'react-player/lazy';
 import { useRecoilState } from 'recoil';
 import { modalState, movieState } from '../atoms/modalAtom';
 import { Element, Genre, Movie, MovieFromModal } from '../types';
@@ -10,6 +12,7 @@ function Modal() {
   const [movie, setMovie] = useRecoilState(movieState);
   const [trailer, setTrailer] = useState('');
   const [genres, setGenres] = useState<Genre[]>([]);
+  const [muted, setMuted] = useState(true);
   const handleClose = () => setShowModal(false);
 
   useEffect(() => {
@@ -40,7 +43,11 @@ function Modal() {
   }, [movie]);
 
   return (
-    <MuiModal open={showModal} onClose={handleClose}>
+    <MuiModal
+      open={showModal}
+      onClose={handleClose}
+      className="fixed !top-7 left-0 right-0 z-50 mx-auto max-w-5xl overflow-hidden rounded-md scrollbar-hide"
+    >
       <div>
         <button
           onClick={handleClose}
@@ -48,6 +55,17 @@ function Modal() {
         >
           <XMarkIcon className="h-6 w-6" />
         </button>
+
+        <div className="relative pt-[56.25%]">
+          <ReactPlayer
+            url={`https://www.youtube.com/watch?v=${trailer}`}
+            width="100%"
+            height="100%"
+            style={{ position: 'absolute', top: '0', left: '0' }}
+            playing
+            muted={muted}
+          />
+        </div>
       </div>
     </MuiModal>
   );
