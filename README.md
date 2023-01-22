@@ -1,6 +1,6 @@
-# Next.js + Tailwind CSS Example
+# Streaming Service Clone
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+This is a tutorial project I recreated, which was originally made by the excellent youtuber [ILW Yennefer](www.youtube.com/@ilwyennefer)
 
 ## Deploy your own
 
