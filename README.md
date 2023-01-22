@@ -1,6 +1,6 @@
 # Streaming Service Clone
 
-This is a tutorial project I recreated, which was originally made by the excellent youtuber [ILW Yennefer](www.youtube.com/@ilwyennefer)
+This is a tutorial project I recreated, which was originally made by the excellent youtuber [ILW Yennefer](www.youtube.com/@ilwyennefer) and their github [lukef7fywmrp](github.com/lukef7fywmrp/)
 
 ## Deploy your own
 
